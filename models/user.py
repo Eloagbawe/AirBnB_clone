@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """The User Model Class"""
-
-
 from models.base_model import BaseModel
 
 

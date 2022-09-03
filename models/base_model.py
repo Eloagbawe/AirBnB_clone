@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """The Base Model Class"""
-
-
 import uuid
 from datetime import datetime
 import models
@@ -11,7 +9,12 @@ class BaseModel:
     """The Base Model class"""
 
     def __init__(self, *args, **kwargs):
-        """initialization"""
+        """initializes a new base model.
+
+        Args:
+            *args (any): Unused.
+            **kwargs (dict): Key/value pairs of attributes.
+        """
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -44,6 +47,4 @@ class BaseModel:
         model_dict['__class__'] = type(self).__name__
         model_dict['created_at'] = model_dict['created_at'].isoformat()
         model_dict['updated_at'] = model_dict['updated_at'].isoformat()
-        # model_dict['created_at'] = self.created_at.isoformat()
-        # model_dict['updated_at'] = self.updated_at.isoformat()
         return model_dict
