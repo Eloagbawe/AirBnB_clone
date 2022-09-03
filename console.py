@@ -194,7 +194,6 @@ class HBNBCommand(cmd.Cmd):
         if data_list is not None:
             print(data_list)
 
-
     def do_update(self, args):
         """Usage: update <className> <id> <attribute> <value>
         Updates an instance based on the class name
