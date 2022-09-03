@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """Test File for the file storage class"""
-
-
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -11,9 +9,10 @@ from datetime import datetime
 
 
 class TestFileStorageModel(unittest.TestCase):
-    """Test Cases for the File storage model"""
+    """Test Cases for the File storage class"""
 
     def setUp(self):
+        """set up method for the file storage class tests"""
         self.f_storage = FileStorage()
         self.model = BaseModel()
         self.model_2 = BaseModel(id="12-345-678",
@@ -29,6 +28,7 @@ class TestFileStorageModel(unittest.TestCase):
         return super().setUp()
 
     def tearDown(self):
+        """tear down method for the file storage class tests"""
         del(self.f_storage)
         del(self.model)
         del(self.model_2)
@@ -38,10 +38,12 @@ class TestFileStorageModel(unittest.TestCase):
             os.remove("file.json")
         return super().tearDown()
 
-    def test_filestorage_model(self):
+    def test_filestorage(self):
+        """Tests to verify the file storage class"""
         self.assertIsInstance(self.f_storage, FileStorage)
 
-    def test_filestorage_model_attributes(self):
+    def test_filestorage_attributes(self):
+        """Tests to verify the attributes of the file storage class"""
 
         with self.assertRaises(AttributeError):
             self.f_storage.__objects
@@ -49,7 +51,8 @@ class TestFileStorageModel(unittest.TestCase):
         with self.assertRaises(AttributeError):
             self.f_storage.__file_path
 
-    def test_filestorage_model_all(self):
+    def test_filestorage_all(self):
+        """Tests to verify the all method of the file storage class"""
         self.f_storage.new(self.model)
         class_name = type(self.model).__name__
         model_key = "{}.{}".format(class_name, self.model.id)
@@ -57,7 +60,8 @@ class TestFileStorageModel(unittest.TestCase):
         self.assertIsInstance(data, dict)
         self.assertIn(model_key, data.keys())
 
-    def test_filestorage_model_new(self):
+    def test_filestorage_new(self):
+        """Tests to verify the new method of the file storage class"""
         class_name = type(self.model_2).__name__
         model_key = "{}.{}".format(class_name, self.model_2.id)
         data = self.f_storage.all()
@@ -65,7 +69,8 @@ class TestFileStorageModel(unittest.TestCase):
         self.f_storage.new(self.model_2)
         self.assertIn(model_key, data.keys())
 
-    def test_filestorage_model_save(self):
+    def test_filestorage_save(self):
+        """Tests to verify the save method of the file storage class"""
         class_name = type(self.model_3).__name__
         model_key = "{}.{}".format(class_name, self.model_3.id)
         self.f_storage.new(self.model_3)
@@ -84,7 +89,8 @@ class TestFileStorageModel(unittest.TestCase):
                 formattedContent = json.loads(content)
                 self.assertIn(model_key, formattedContent.keys())
 
-    def test_filestorage_model_reload(self):
+    def test_filestorage_reload(self):
+        """Tests to verify the reload method of the file storage class"""
         pass
 
 
