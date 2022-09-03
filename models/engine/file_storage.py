@@ -15,6 +15,7 @@ from models.review import Review
 
 class FileStorage:
     """File storage module"""
+
     __file_path = "file.json"
     __objects = {}
 
@@ -55,8 +56,10 @@ class FileStorage:
                     self.new(eval(class_name)(**value))
 
     def update(self, key, attr, value):
+        """updates an instance"""
         model = FileStorage.__objects[key]
         setattr(model, attr, value)
 
     def delete(self, key):
+        """deletes an instance"""
         del FileStorage.__objects[key]
