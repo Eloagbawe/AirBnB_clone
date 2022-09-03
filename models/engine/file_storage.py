@@ -4,6 +4,13 @@
 import json
 import os
 import models
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
@@ -35,7 +42,7 @@ class FileStorage:
         """reloads from a json file"""
 
         file = FileStorage.__file_path
-        classes = models.classes
+        # classes = models.classes
 
         if os.path.isfile(file):
             with open(file, 'r', encoding="utf-8") as f:
@@ -44,7 +51,8 @@ class FileStorage:
 
                 for value in formattedContent.values():
                     class_name = value["__class__"]
-                    self.new(classes[class_name](**value))
+                    # self.new(classes[class_name](**value))
+                    self.new(eval(class_name)(**value))
 
     def update(self, key, attr, value):
         model = FileStorage.__objects[key]

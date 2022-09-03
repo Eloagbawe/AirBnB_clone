@@ -7,6 +7,13 @@ from models import storage
 import models
 import re
 from shlex import split
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 classes = models.classes
@@ -29,6 +36,7 @@ def split_arg(arg):
         retl.append(curly_braces.group())
         return retl
 
+
 def convert(val):
     """converts value to proper type"""
     constructors = [int, float, str]
@@ -37,6 +45,7 @@ def convert(val):
             return c(val)
         except ValueError:
             pass
+
 
 def find_models(args):
     data = storage.all()
@@ -54,6 +63,7 @@ def find_models(args):
             if value.__class__.__name__ == arg_list[0]:
                 data_list.append(str(value))
     return data_list
+
 
 class HBNBCommand(cmd.Cmd):
     """The Command prompt Class"""
@@ -116,7 +126,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return False
         else:
-            new_model = classes[arg_list[0]]()
+            # new_model = classes[arg_list[0]]()
+            new_model = eval(arg_list[0])()
             storage.save()
             print(new_model.id)
 
