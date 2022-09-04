@@ -21,6 +21,8 @@ class BaseModel:
                 if key == 'created_at' or key == 'updated_at':
                     format = "%Y-%m-%dT%H:%M:%S.%f"
                     setattr(self, key, datetime.strptime(value, format))
+                elif key == "__class__":
+                    continue
                 else:
                     setattr(self, key, value)
         else:
