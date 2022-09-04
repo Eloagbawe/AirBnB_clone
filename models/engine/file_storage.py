@@ -52,6 +52,7 @@ class FileStorage:
 
                 for value in formattedContent.values():
                     class_name = value["__class__"]
+                    del value["__class__"]
                     # self.new(classes[class_name](**value))
                     self.new(eval(class_name)(**value))
 
